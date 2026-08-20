@@ -5,13 +5,14 @@ require_once __DIR__ . '/../models/top_empleados_incremento_salarial.php';
 $app = new TopEmpleadosIncrementoSalarial();
 
 $accion = isset($_GET['accion']) ? $_GET['accion'] : null;
+$cantidad = $_GET['cantidad'] ?? 10;
 
 include_once __DIR__ . '/../views/header.php';
 
 switch ($accion) {
     case 'leer':
     default:
-        $topEmpleados = $app->leer();
+        $topEmpleados = $app->leer($cantidad);
         require __DIR__ . '/../views/top_empleados_incremento_salarial/index.php';
 }
 

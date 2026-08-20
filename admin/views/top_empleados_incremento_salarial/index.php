@@ -1,7 +1,14 @@
 <div class="flex-grow-1 p-4 d-flex flex-column align-items-center">
     <h1>Top 10 empleados con mayor incremento salarial en su carrera.</h1>
     <hr>
-    <table class="table caption-top">
+    <form method="GET">
+        <p>Cantidad de empleados a mostrar:</p>
+        <div class="input-group mb-3">
+            <input type="number" name="cantidad" min="1" value="10" class="form-control">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Mostrar</button>
+        </div>
+    </form>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">No.</th>

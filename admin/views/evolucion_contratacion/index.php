@@ -1,7 +1,7 @@
 <div class="flex-grow-1 p-4 d-flex flex-column align-items-center">
     <h1>Evolución de contrataciones por año y género.</h1>
     <hr>
-    <table class="table caption-top">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">Año</th>
