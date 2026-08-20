@@ -1,19 +1,17 @@
 <?php
-require_once __DIR__ . "/sistema.php";
+require_once __DIR__ . '/../sistema.class.php';
 
 class EvolucionContratacion extends Sistema
 {
-    // Total de contrataciones por año y género
     function leer()
     {
-        $this->connect();
-
-        $sql = "SELECT YEAR(hire_date) AS anio, gender AS genero, COUNT(*) AS total_contrataciones
-                FROM employees
-                GROUP BY anio, genero
-                ORDER BY anio, genero";
-
-        $stmt = $this->_db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->conectar();
+        $sql = "select year(e.hire_date) as anio, e.gender as genero, count(*) as total_contrataciones from employees e
+                group by year(e.hire_date), e.gender
+                order by anio desc;";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $evolucion = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $evolucion;
     }
 }

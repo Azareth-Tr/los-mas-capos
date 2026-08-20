@@ -1,4 +1,4 @@
-<div class="flex-grow-1 p-4">
+<div class="flex-grow-1 p-4" style="width: min(1100px, 100%); margin: 0 auto; padding: 24px 16px 40px; text-align: center;">
     <h1>Salario Promedio por Departamento</h1>
 
     <table class="table table-striped">
@@ -9,10 +9,10 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($salarios as $salario): ?>
+            <?php foreach ($promedios as $promedio): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($salario['departamento']); ?></td>
-                    <td><?php echo htmlspecialchars($salario['salario_promedio']); ?></td>
+                    <td><?php echo htmlspecialchars($promedio['departamento']); ?></td>
+                    <td><?php echo htmlspecialchars($promedio['salario_promedio']); ?></td>
                 </tr>
             <?php endforeach; ?>
             

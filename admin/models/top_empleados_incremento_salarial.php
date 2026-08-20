@@ -1,32 +1,23 @@
 <?php
-require_once __DIR__ . "/sistema.php";
+require_once __DIR__ . '/../sistema.class.php';
 
 class TopEmpleadosIncrementoSalarial extends Sistema
 {
-    // Top N empleados con mayor incremento salarial (salario máximo vs mínimo) en su carrera
-    function leer($cantidad = 10)
+    function leer($cantidad)
     {
-        $this->connect();
-
-        $cantidad = (int) $cantidad;
-        if ($cantidad <= 0) {
-            $cantidad = 10;
-        }
-
-        $sql = "SELECT e.emp_no,
-                    CONCAT(e.first_name, ' ', e.last_name) AS empleado,
-                    MIN(s.salary) AS salario_minimo,
-                    MAX(s.salary) AS salario_maximo,
-                    ROUND((MAX(s.salary) - MIN(s.salary)) / MIN(s.salary) * 100, 2) AS porcentaje_incremento,
-                    TIMESTAMPDIFF(YEAR, MIN(s.from_date), MAX(s.from_date)) AS anios_carrera
-                FROM employees e
-                INNER JOIN salaries s ON s.emp_no = e.emp_no
-                GROUP BY e.emp_no, empleado
-                HAVING anios_carrera > 0
-                ORDER BY porcentaje_incremento DESC
-                LIMIT $cantidad";
-
-        $stmt = $this->_db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->conectar();
+        $sql = "select concat(e.first_name, ' ', e.last_name) as empleado, min(s.salary) as salario_minimo, max(s.salary) as salario_maximo,
+                    round(((max(s.salary) - min(s.salary)) / min(s.salary)) * 100, 2) as porcentaje_incremento,
+                    timestampdiff(year, e.hire_date, now()) as anios_carrera
+                    from employees e
+                    join salaries s on e.emp_no = s.emp_no
+                    group by e.emp_no
+                    order by porcentaje_incremento desc
+                    limit :cantidad;";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':cantidad', $cantidad, PDO::PARAM_INT);
+        $stmt->execute();
+        $evolucion = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $evolucion;
     }
 }

@@ -1,14 +1,17 @@
-fetch('evolucion_contrataciones_grafico.php?accion=json')
+fetch('numero_empleados_departamento_grafico.php?accion=json')
     .then(response => response.json())
     .then(data => {
-        const ctx = document.getElementById('graficoEvolucion').getContext('2d');
+        const ctx = document.getElementById('graficoEmpleadosDepartamento').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: data.labels,
                 datasets: [
-                    { label: data.datasets[0].label, data: data.datasets[0].data, backgroundColor: '#6a9bec' },
-                    { label: data.datasets[1].label, data: data.datasets[1].data, backgroundColor: '#d166d1' }
+                    {
+                        label: data.datasets[0].label,
+                        data: data.datasets[0].data,
+                        backgroundColor: '#6a9bec'
+                    }
                 ]
             },
             options: {
@@ -20,12 +23,12 @@ fetch('evolucion_contrataciones_grafico.php?accion=json')
                         display: false
                     },
                     legend: {
-                        position: 'top'
+                        display: false // con un solo dataset no hace falta leyenda
                     }
                 },
                 scales: {
-                    x: { stacked: true, title: { display: true, text: 'Año' } },
-                    y: { stacked: true, title: { display: true, text: 'Número de contrataciones' } }
+                    x: { title: { display: true, text: 'Departamento' } },
+                    y: { title: { display: true, text: 'Número de empleados' }, beginAtZero: true }
                 }
             }
         });

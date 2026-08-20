@@ -1,5 +1,6 @@
 <?php
 // controlador/evolucion_contratacion_grafico.php
+require_once __DIR__ . '/../../sistema.class.php';
 require_once __DIR__ . '/../../models/evolucion_contratacion.php';
 
 $app = new EvolucionContratacion();
@@ -37,7 +38,6 @@ if ($accion === 'json') {
     exit;
 }
 
-// Si no viene ?accion=json, muestra la página normal con el canvas
 include_once __DIR__ . '/../../views/header.php';
 require __DIR__ . '/../../views/graficos/evolucion_contrataciones_grafico/index.php';
 include_once __DIR__ . '/../../views/footer.php';
