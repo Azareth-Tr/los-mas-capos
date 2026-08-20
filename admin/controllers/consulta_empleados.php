@@ -14,7 +14,6 @@ if ($empNo) {
     $detalle = $modelo->obtenerDetalleEmpleado($empNo);
 } elseif ($termino !== '') {
     $resultados = $modelo->buscarEmpleados($termino);
-    // Si la búsqueda arrojó un único resultado, se muestra su detalle directamente
     if (count($resultados) === 1) {
         $detalle = $modelo->obtenerDetalleEmpleado($resultados[0]['emp_no']);
     }

@@ -4,7 +4,6 @@ include_once __DIR__ . "/../../views/header.php";
 
 $modelo = new EmpleadoRangoEdadGenero();
 
-// Permite comparar contra una fecha de referencia distinta a hoy (por ejemplo, fin de un año fiscal)
 $fechaReferencia = isset($_GET['fecha_referencia']) && $_GET['fecha_referencia'] !== ''
     ? $_GET['fecha_referencia']
     : date('Y-m-d');

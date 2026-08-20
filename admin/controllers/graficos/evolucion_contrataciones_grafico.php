@@ -1,5 +1,4 @@
 <?php
-// controlador/evolucion_contratacion_grafico.php
 require_once __DIR__ . '/../../sistema.class.php';
 require_once __DIR__ . '/../../models/evolucion_contratacion.php';
 

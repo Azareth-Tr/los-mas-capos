@@ -16,7 +16,11 @@
     $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
     $adminPos = strpos($scriptName, '/admin/');
     $baseUrl = $adminPos !== false ? substr($scriptName, 0, $adminPos) : '';
-
-    include __DIR__ . "/sidebar.php";
     ?>
-    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-lg-2 d-md-block bg-dark sidebar p-0">
+                <?php include __DIR__ . "/sidebar.php"; ?>
+            </div>
+            <div class="col-md-9 col-lg-10">
+                <main>

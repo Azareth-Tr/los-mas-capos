@@ -9,7 +9,7 @@
         </div>
     </form>
     <br>
-    <p>Muestra los empleados con mas titulos y su salario, en la fecha mas actual</p>
+    <p>Muestra los empleados con mas titulos y su salario.</p>
     <br>
     <table class="table table-striped">
         <thead>

@@ -3,18 +3,17 @@ require_once __DIR__ . "/sistema.php";
 
 class SalarioPromedio extends Sistema
 {
-    // Salario promedio actual por departamento
     function obtenerSalarioPromedioPorDepartamento()
     {
         $this->connect();
 
-        $sql = "SELECT d.dept_name AS departamento, ROUND(AVG(s.salary), 2) AS salario_promedio
-                FROM dept_emp de
-                INNER JOIN departments d ON d.dept_no = de.dept_no
-                INNER JOIN salaries s ON s.emp_no = de.emp_no AND s.to_date = '9999-01-01'
-                WHERE de.to_date = '9999-01-01'
-                GROUP BY d.dept_name
-                ORDER BY salario_promedio DESC";
+        $sql = "select d.dept_name as departamento, round(avg(s.salary), 2) as salario_promedio
+                from dept_emp de
+                inner join departments d on d.dept_no = de.dept_no
+                inner join salaries s on s.emp_no = de.emp_no and s.to_date = '9999-01-01'
+                where de.to_date = '9999-01-01'
+                group by d.dept_name
+                order by salario_promedio desc";
 
         $stmt = $this->_db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

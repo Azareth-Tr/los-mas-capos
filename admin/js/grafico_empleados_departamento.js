@@ -23,7 +23,7 @@ fetch('numero_empleados_departamento_grafico.php?accion=json')
                         display: false
                     },
                     legend: {
-                        display: false // con un solo dataset no hace falta leyenda
+                        display: false
                     }
                 },
                 scales: {

@@ -13,7 +13,7 @@ if ($accion === 'json') {
 
     foreach ($resultado as $fila) {
         $labels[] = $fila['departamento'];
-        $data[] = (int)$fila['total_empleados']; // ajusta el nombre de esta clave según tu SELECT
+        $data[] = (int)$fila['total_empleados'];
     }
 
     echo json_encode([

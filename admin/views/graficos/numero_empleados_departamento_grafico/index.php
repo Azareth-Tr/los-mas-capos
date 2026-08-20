@@ -7,4 +7,4 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="/los-mas-capos/admin/js/grafico_empleados_departamento.js"></script>
+<script src="../../js/grafico_empleados_departamento.js"></script>
