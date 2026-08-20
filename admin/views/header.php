@@ -12,9 +12,7 @@
 
 <body>
     <?php
-    // Calcula la URL base del proyecto a partir de la posición de "/admin/" en la URL actual.
-    // Así los links funcionan sin importar bajo qué subcarpeta se publique la app
-    // (por ejemplo http://200.23.53.68/~bigdata/los_compiladores/admin/...).
+
     $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
     $adminPos = strpos($scriptName, '/admin/');
     $baseUrl = $adminPos !== false ? substr($scriptName, 0, $adminPos) : '';
