@@ -9,10 +9,10 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($salarios as $salario): ?>
+            <?php foreach ($promedios as $promedio): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($salario['departamento']); ?></td>
-                    <td><?php echo htmlspecialchars($salario['salario_promedio']); ?></td>
+                    <td><?php echo htmlspecialchars($promedio['departamento']); ?></td>
+                    <td><?php echo htmlspecialchars($promedio['salario_promedio']); ?></td>
                 </tr>
             <?php endforeach; ?>
             

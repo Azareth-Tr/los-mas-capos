@@ -1,0 +1,1 @@
+<h1>No existen departamentos con salario promedio registrados.</h1>
