@@ -11,7 +11,7 @@ class Empleado extends Sistema {
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function obtenerEmpleadosConTitulosYSalario($cantidad) {
+    public function obtenerEmpleadosConTitulosYSalario($cantidad = 50) {
         $this->connect();
         $sql = "SELECT concat(e.first_name,' ', e.last_name) as empleado, count(DISTINCT t.title) as cantidad_titulos, s.salary as salario
                 from employees e
