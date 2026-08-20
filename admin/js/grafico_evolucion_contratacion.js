@@ -12,6 +12,7 @@ fetch('evolucion_contrataciones_grafico.php?accion=json')
                 ]
             },
             options: {
+                animation: false,
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
