@@ -43,3 +43,4 @@ foreach ($rangos as $rango) {
 
 $totalEmpleados = array_sum(array_column($resultados, 'total_employees'));
 include_once(__DIR__ . "/../views/empleado_rango_edad_genero/index.php");
+include_once(__DIR__ . "/../views/footer.php");

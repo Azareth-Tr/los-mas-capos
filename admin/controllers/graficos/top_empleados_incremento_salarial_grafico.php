@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../../sistema.class.php';
 require_once __DIR__ . '/../../models/top_empleados_incremento_salarial.php';
 
 $app = new TopEmpleadosIncrementoSalarial();

@@ -83,4 +83,4 @@
     <div id="listaEmpleados">Cargando datos...</div>
 </div>
 
-<script src="/los-mas-capos/admin/js/grafico_top_incremento_salarial.js?v=<?php echo time(); ?>"></script>
+<script src="<?php echo $baseUrl; ?>/admin/js/grafico_top_incremento_salarial.js?v=<?php echo time(); ?>"></script>
