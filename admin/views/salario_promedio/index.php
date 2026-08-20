@@ -1,4 +1,4 @@
-<div class="flex-grow-1 p-4">
+<div class="flex-grow-1 p-4" style="width: min(1100px, 100%); margin: 0 auto; padding: 24px 16px 40px; text-align: center;">
     <h1>Salario Promedio por Departamento</h1>
 
     <table class="table table-striped">

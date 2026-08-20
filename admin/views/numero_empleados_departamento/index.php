@@ -1,2 +1,2 @@
 <div class="flex-grow-1 p-4">
-    <h1>aqui esta el index de los empleados por departamento</h1>
+    <h1>Numeros de Empleados por Departamento</h1>

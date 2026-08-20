@@ -1,4 +1,4 @@
-<div class="flex-grow-1 p-4">
+<div class="flex-grow-1 p-4" style="width: min(1100px, 100%); margin: 0 auto; padding: 24px 16px 40px; text-align: center;">
     <h1>Nueva Consulta</h1>
 
     <p>Muestra los empleados con mas titulos y su salario, en la fecha mas actual</p>
