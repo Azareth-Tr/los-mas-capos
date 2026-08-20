@@ -3,13 +3,14 @@ require_once __DIR__ . "/../models/empleado.php";
 
 $app = new Empleado();
 $accion = isset($_GET['accion']) ? $_GET['accion'] : null;
+$cantidad = $_GET['cantidad'] ?? 10;
 
 include_once __DIR__ . "/../views/header.php";
 
 switch ($accion) {
     case 'leer':
     default:
-        $empleados = $app->obtenerEmpleadosConTitulosYSalario();
+        $empleados = $app->obtenerEmpleadosConTitulosYSalario($cantidad);
         require __DIR__ . "/../views/nueva_consulta/index.php";
 }
 
