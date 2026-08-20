@@ -9,8 +9,7 @@ include_once __DIR__ . "/../views/header.php";
 switch ($accion) {
     case 'leer':
     default:
-        $numeroEmpleados = $app->obtenerNumeroEmpleadosPorDepartamento();
+        $departamentos = $app->obtenerNumeroEmpleadosPorDepartamento();
         require __DIR__ . "/../views/numero_empleados_departamento/index.php";
 }
-
 include_once __DIR__ . "/../views/footer.php";

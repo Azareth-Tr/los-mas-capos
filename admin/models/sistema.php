@@ -17,4 +17,4 @@ class Sistema {
         $this->_db = new PDO($this->_dsn, $this->_usuario, $this->_contrasena);
     }
 }
-?>
+?>

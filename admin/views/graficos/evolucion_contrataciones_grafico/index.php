@@ -6,5 +6,4 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="/los-mas-capos/admin/js/grafico_evolucion_contratacion.js"></script>
+<script src="<?php echo $baseUrl; ?>/admin/js/grafico_evolucion_contratacion.js"></script>

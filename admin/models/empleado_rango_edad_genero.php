@@ -1,46 +1,88 @@
 <?php
-require_once "sistema.php";
+require_once __DIR__ . "/sistema.php";
 
-class Empleado_Rango_Edad_Genero extends Sistema {
-
-        function read($referenceDate, $gender){
+class EmpleadoRangoEdadGenero extends Sistema
+{
+    // Distribución de empleados activos por rango de edad y género,
+    // calculada contra la fecha de referencia indicada (por defecto hoy).
+    // Rangos: <30, 30-39, 40-49, 50-59, >=60
+    function obtenerDistribucionPorEdadYGenero($fechaReferencia = null)
+    {
         $this->connect();
-        $sql = "WITH edades AS (
-                    SELECT gender,
-                        TIMESTAMPDIFF(YEAR, birth_date, :reference_date) AS age
-                    FROM employees
-                )
-                SELECT CASE
-                        WHEN age < 30 THEN '<30'
-                        WHEN age BETWEEN 30 AND 39 THEN '30-39'
-                        WHEN age BETWEEN 40 AND 49 THEN '40-49'
-                        WHEN age BETWEEN 50 AND 59 THEN '50-59'
+
+        if (!$fechaReferencia) {
+            $fechaReferencia = date('Y-m-d');
+        }
+
+        $sql = "SELECT
+                    CASE
+                        WHEN TIMESTAMPDIFF(YEAR, e.birth_date, :fecha1) < 30 THEN '<30'
+                        WHEN TIMESTAMPDIFF(YEAR, e.birth_date, :fecha2) BETWEEN 30 AND 39 THEN '30-39'
+                        WHEN TIMESTAMPDIFF(YEAR, e.birth_date, :fecha3) BETWEEN 40 AND 49 THEN '40-49'
+                        WHEN TIMESTAMPDIFF(YEAR, e.birth_date, :fecha4) BETWEEN 50 AND 59 THEN '50-59'
+                        ELSE '>=60'
+                    END AS rango_edad,
+                    e.gender AS genero,
+                    COUNT(*) AS total
+                FROM employees e
+                INNER JOIN dept_emp de ON de.emp_no = e.emp_no AND de.to_date = '9999-01-01'
+                GROUP BY rango_edad, genero
+                ORDER BY FIELD(rango_edad, '<30','30-39','40-49','50-59','>=60'), genero";
+
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':fecha1', $fechaReferencia);
+        $stmt->bindValue(':fecha2', $fechaReferencia);
+        $stmt->bindValue(':fecha3', $fechaReferencia);
+        $stmt->bindValue(':fecha4', $fechaReferencia);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+
+// Usada por el reporte tabular (admin/controllers/empleado_rango_edad_genero.php).
+// Misma lógica que EmpleadoRangoEdadGenero de arriba (empleados activos, mismos rangos),
+// pero con la firma read($fecha, $genero) y las llaves que espera esa vista.
+class Empleado_Rango_Edad_Genero extends Sistema
+{
+    function read($fechaReferencia, $genero = '')
+    {
+        $this->connect();
+
+        if (!$fechaReferencia) {
+            $fechaReferencia = date('Y-m-d');
+        }
+
+        $sql = "SELECT
+                    CASE
+                        WHEN TIMESTAMPDIFF(YEAR, e.birth_date, :fecha1) < 30 THEN '<30'
+                        WHEN TIMESTAMPDIFF(YEAR, e.birth_date, :fecha2) BETWEEN 30 AND 39 THEN '30-39'
+                        WHEN TIMESTAMPDIFF(YEAR, e.birth_date, :fecha3) BETWEEN 40 AND 49 THEN '40-49'
+                        WHEN TIMESTAMPDIFF(YEAR, e.birth_date, :fecha4) BETWEEN 50 AND 59 THEN '50-59'
                         ELSE '>=60'
                     END AS age_range,
-                    gender,
+                    e.gender AS gender,
                     COUNT(*) AS total_employees
-                FROM edades";
+                FROM employees e
+                INNER JOIN dept_emp de ON de.emp_no = e.emp_no AND de.to_date = '9999-01-01'";
 
-        $params = array(':reference_date' => $referenceDate);
-        if ($gender !== '') {
-            $sql .= " WHERE gender = :gender";
-            $params[':gender'] = $gender;
+        if ($genero !== '') {
+            $sql .= " WHERE e.gender = :genero";
         }
 
         $sql .= " GROUP BY age_range, gender
-                ORDER BY CASE age_range
-                            WHEN '<30' THEN 1
-                            WHEN '30-39' THEN 2
-                            WHEN '40-49' THEN 3
-                            WHEN '50-59' THEN 4
-                            WHEN '>=60' THEN 5
-                        END, gender;";
+                   ORDER BY FIELD(age_range, '<30','30-39','40-49','50-59','>=60'), gender";
 
-        $sth = $this->_db->prepare($sql);
-        foreach ($params as $parameter => $value) {
-            $sth->bindValue($parameter, $value);
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':fecha1', $fechaReferencia);
+        $stmt->bindValue(':fecha2', $fechaReferencia);
+        $stmt->bindValue(':fecha3', $fechaReferencia);
+        $stmt->bindValue(':fecha4', $fechaReferencia);
+        if ($genero !== '') {
+            $stmt->bindValue(':genero', $genero);
         }
-        $sth->execute();
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
